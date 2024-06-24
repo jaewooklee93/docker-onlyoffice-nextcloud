@@ -39,15 +39,15 @@ sed -i 's/^pm\.max_spare_servers\s*=.*/pm.max_spare_servers = 18/' www.conf
     docker compose up -d
     ```
 
-3. Go to the project folder and run the `set_configuration.sh` script:
+4. 약 2분간 기다려서 `http://localhost` 로 접속 가능한지 확인한다.
+
+5. Go to the project folder and run the `set_configuration.sh` script:
     ```bash
     bash set_configuration.sh
     ```
 **Please note**: The default JWT (secret key) is enabled in ONLYOFFICE Document Server. It is recommended to specify your own secret key in the Nextcloud administrativ
 
-4. `http://localhost` 로 접속하면 됨.
-
-5. 우상단 프로필 아이콘 > Administration settings > ONLYOFFICE > Common settings > Checkbox 모두 선택 > Save
+6. 우상단 프로필 아이콘 > Administration settings > ONLYOFFICE > Common settings > Checkbox 모두 선택 > Save
 
 Now you can enter Nextcloud and create a new document. It will be opened in ONLYOFFICE Document Server. 
 
