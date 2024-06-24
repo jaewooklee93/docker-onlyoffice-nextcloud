@@ -1,4 +1,4 @@
-## OnlyOffice Document Server and Nextcloud Docker installation
+## OnlyOffice Server and Nextcloud Docker installation
 - NextCloud: 오픈소스 Dropbox
 - OnlyOffice: 오픈소스 Google Docs/Spreadsheet
 
@@ -57,15 +57,17 @@ Now you can enter Nextcloud and create a new document. It will be opened in ONLY
 - 인트라넷에서 IP 주소로 접근시에는 성능 저하 문제는 없을 것
 
 ## 외부 도메인 연결하기 (cloudflare tunnel 기준)
-    - `your.tunnel.domain` --> `localhost:80`
-    - config/config.php 수정 필요
+- `your.tunnel.domain` --> `localhost:80`
+- config/config.php 수정 필요
 
     ```bash
     # 꺼내기
     $ docker compose cp app:/var/www/html/config/config.php .
     $ vi ./config.php
     ```
+    
 config.php 파일에 접속할 주소나 아이피를 추가하여 아래와 같이 같이 수정한다
+
     ```php
         'trusted_domains' =>
             array (
