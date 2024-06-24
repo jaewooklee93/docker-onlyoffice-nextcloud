@@ -54,14 +54,18 @@ Now you can enter Nextcloud and create a new document. It will be opened in ONLY
 ## Known Issues
 - 도메인 및 SSL/TLS 관련하여 Cloudflare Proxy나 flexible SSL 적용된 경우 성능이 매우 저하되고 Office 기능은 아예 작동하지 않음: [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one?tab=readme-ov-file#notes-on-cloudflare-proxytunnel)
 - Cloudflared Tunnel 사용시 소규모 이용에는 문제가 없으나 대규모 이용시 어떨지는 모른다.
+- 인트라넷에서 IP 주소로 접근시에는 성능 저하 문제는 없을 것
+
+## 외부 도메인 연결하기 (cloudflare tunnel 기준)
     - `your.tunnel.domain` --> `localhost:80`
     - config/config.php 수정 필요
 
     ```bash
-    $ docker compose exec -it app bash
-    # vi /var/www/html/config/config.php
+    # 꺼내기
+    $ docker compose cp app:/var/www/html/config/config.php .
+    $ vi ./config.php
     ```
-
+config.php 파일에 접속할 주소나 아이피를 추가하여 아래와 같이 같이 수정한다
     ```php
         'trusted_domains' =>
             array (
@@ -71,4 +75,9 @@ Now you can enter Nextcloud and create a new document. It will be opened in ONLY
                 3 => '111.222.333.444'     // 필요시 추가
             ),
     ```
-- 인트라넷에서 IP 주소로 접근시에는 성능 저하 문제는 없을 것
+
+    ```bash
+    # 도로 집어넣기
+    $ docker compose cp ./config.php app:/var/www/html/config/config.php
+    $ docker compose exec app chown 33:33 /var/www/html/config/config.php
+    ```
