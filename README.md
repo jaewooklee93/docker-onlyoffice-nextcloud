@@ -43,14 +43,32 @@ sed -i 's/^pm\.max_spare_servers\s*=.*/pm.max_spare_servers = 18/' www.conf
     ```bash
     bash set_configuration.sh
     ```
-**Please note**: The default JWT (secret key) is enabled in ONLYOFFICE Document Server. It is recommended to specify your own secret key in the Nextcloud administrative configuration and [ONLYOFFICE Docs](https://helpcenter.onlyoffice.com/installation/docs-configure-jwt.aspx).
+**Please note**: The default JWT (secret key) is enabled in ONLYOFFICE Document Server. It is recommended to specify your own secret key in the Nextcloud administrativ
 
 4. `http://localhost` 로 접속하면 됨.
+
+5. 우상단 프로필 아이콘 > Administration settings > ONLYOFFICE > Common settings > Checkbox 모두 선택 > Save
 
 Now you can enter Nextcloud and create a new document. It will be opened in ONLYOFFICE Document Server. 
 
 ## Known Issues
 - 도메인 및 SSL/TLS 관련하여 Cloudflare Proxy나 flexible SSL 적용된 경우 성능이 매우 저하되고 Office 기능은 아예 작동하지 않음: [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one?tab=readme-ov-file#notes-on-cloudflare-proxytunnel)
 - Cloudflared Tunnel 사용시 소규모 이용에는 문제가 없으나 대규모 이용시 어떨지는 모른다.
-    - `<tunnel-domain>` --> `localhost:80`
-- 인트라넷에서 IP 주소로 접근시에는 문제 없을 것
+    - `your.tunnel.domain` --> `localhost:80`
+    - config/config.php 수정 필요
+
+    ```bash
+    $ docker compose exec -it app bash
+    # vi /var/www/html/config/config.php
+    ```
+
+    ```php
+        'trusted_domains' =>
+            array (
+                0 => 'localhost',
+                1 => 'nginx-server',
+                2 => 'your.tunnel.domain'  // 필요시 추가
+                3 => '111.222.333.444'     // 필요시 추가
+            ),
+    ```
+- 인트라넷에서 IP 주소로 접근시에는 성능 저하 문제는 없을 것
