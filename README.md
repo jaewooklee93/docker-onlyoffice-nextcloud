@@ -6,19 +6,20 @@
 
 1. Get the latest version of this repository running the command:
 
-    ```bash
-    # Original repo
-    git clone https://github.com/ONLYOFFICE/docker-onlyoffice-nextcloud
+```bash
+# Original repo
+git clone https://github.com/ONLYOFFICE/docker-onlyoffice-nextcloud
 
-    # Modified docker-compose.yml + www.conf (This repo)
-    git clone https://github.com/jaewooklee93/docker-onlyoffice-nextcloud
-    
-    cd docker-onlyoffice-nextcloud
-    ```
+# Modified docker-compose.yml + www.conf (This repo)
+git clone https://github.com/jaewooklee93/docker-onlyoffice-nextcloud
+
+cd docker-onlyoffice-nextcloud
+```
 
 2. `www.conf` 설정파일 생성
 
 - `app` 컨테이너의 `/usr/local/etc/php-fpm.d/www.conf` 파일에서 php-fpm 동시작업 수를 늘려주어야 함: [docs.nextcloud.com](https://docs.nextcloud.com/server/21/admin_manual/installation/server_tuning.html#tune-php-fpm)
+
 ```bash
 docker create --name temp_container nextcloud:fpm
 docker cp temp_container:/usr/local/etc/php-fpm.d/www.conf .
@@ -29,6 +30,7 @@ sed -i 's/^pm\.min_spare_servers\s*=.*/pm.min_spare_servers = 6/' www.conf
 sed -i 's/^pm\.max_spare_servers\s*=.*/pm.max_spare_servers = 18/' www.conf
 # ./www.conf 파일이 생성됨
 ```
+
 본 repo에는 미리 생성해 두었음.
 
 3. (docker-compose.yml에서 NextCloud Admin ID/PW만 설정한 후) Run Docker Compose: 
