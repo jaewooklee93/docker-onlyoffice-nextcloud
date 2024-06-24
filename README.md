@@ -53,8 +53,8 @@ Now you can enter Nextcloud and create a new document. It will be opened in ONLY
 
 ## Known Issues
 - 도메인 및 SSL/TLS 관련하여 Cloudflare Proxy나 flexible SSL 적용된 경우 성능이 매우 저하되고 Office 기능은 아예 작동하지 않음: [nextcloud/all-in-one](https://github.com/nextcloud/all-in-one?tab=readme-ov-file#notes-on-cloudflare-proxytunnel)
-- Cloudflared Tunnel 사용시 소규모 이용에는 문제가 없으나 대규모 이용시 어떨지는 모른다.
-- 인트라넷에서 IP 주소로 접근시에는 성능 저하 문제는 없을 것
+- Cloudflared Tunnel 사용시에도 소규모 이용은 가능하나 localhost에 비해 10배 정도 느림
+- 인트라넷에서 IP 주소로 접근시에는 성능 저하 없을듯
 
 ## 외부 도메인 연결하기 (cloudflare tunnel 기준)
 - `your.tunnel.domain` --> `localhost:80`
